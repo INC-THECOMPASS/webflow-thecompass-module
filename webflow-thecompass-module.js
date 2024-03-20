@@ -108,3 +108,4 @@ window.addEventListener('load', () => {
 window.addEventListener('unload', () => {
     Object.values(tc).forEach((value) => value.clear())
 })
+

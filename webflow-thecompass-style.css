@@ -1,0 +1,15 @@
+*[tc-if=false] {
+    display: none;
+}
+
+*[tc-not-if=true] {
+    display: none;
+}
+
+*[tc-disabled] {
+    pointer-event: none;
+}
+
+*[tc-afterload] {
+    visibility: hidden;
+}
