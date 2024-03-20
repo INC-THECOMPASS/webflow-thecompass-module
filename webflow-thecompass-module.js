@@ -1,5 +1,7 @@
 const tc = {}
 
+
+
 const Ref = (initialValue) => {
     let value = initialValue;
     let subscribers = [];
@@ -56,11 +58,12 @@ function dfs(dom) {
                         tc[key] = Ref(0)
                     }
                     tc[key].subscribe((value, args) => {
-                        // console.log(value, template, dom.innerText.indexOf(template) === -1)
+                        const retValue = eval(template.replaceAll("{","").replaceAll("}",""))
+
                         if (dom.innerText.indexOf(template) === -1) {
-                            dom.innerText = args.innerText.replaceAll(template, tc[key].value)
+                            dom.innerText = args.innerText.replaceAll(template, retValue)
                         } else {
-                            dom.innerText = dom.innerText.replaceAll(template, tc[key].value)
+                            dom.innerText = dom.innerText.replaceAll(template, retValue)
                         }
                     }, {innerText: dom.innerText})
                     dom.style.visibility = "visible";
@@ -79,10 +82,11 @@ function dfs(dom) {
                     }
                     tc[key].subscribe((value, args) => {
                         // console.log(value, template, dom.innerText.indexOf(template) === -1)
+                        const retValue = eval(template.replaceAll("{","").replaceAll("}",""))
                         if (dom.getAttribute(name).indexOf(template) === -1) {
-                            dom.setAttribute(name, args.prop.replaceAll(template, tc[key].value))
+                            dom.setAttribute(name, args.prop.replaceAll(template, retValue))
                         } else {
-                            dom.setAttribute(name, dom.getAttribute(name).replaceAll(template, tc[key].value))
+                            dom.setAttribute(name, dom.getAttribute(name).replaceAll(template, retValue))
                         }
                     }, {prop: dom.getAttribute(name)})
                 })
