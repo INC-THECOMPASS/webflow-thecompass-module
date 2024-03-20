@@ -60,16 +60,19 @@ function dfs(dom) {
                     if (window[key] === undefined) {
                         window[key] = Ref(0)
                     }
-                    window[key].subscribe((value, args) => {
-                        const retValue = eval(key)
+                    const realKey = Object.keys(Object.assign(window)).find(t => key.indexOf(t) !== -1)
+                    if(realKey) {
+                        window[realKey].subscribe((value, args) => {
+                            const retValue = eval(key)
 
-                        if (dom.innerText.indexOf(template) === -1) {
-                            dom.innerText = args.innerText.replaceAll(template, retValue)
-                        } else {
-                            dom.innerText = dom.innerText.replaceAll(template, retValue)
-                        }
-                    }, {innerText: dom.innerText})
-                    dom.style.visibility = "visible";
+                            if (dom.innerText.indexOf(template) === -1) {
+                                dom.innerText = args.innerText.replaceAll(template, retValue)
+                            } else {
+                                dom.innerText = dom.innerText.replaceAll(template, retValue)
+                            }
+                        }, {innerText: dom.innerText})
+                        dom.style.visibility = "visible";
+                    }
                 })
             }
         }
@@ -83,15 +86,18 @@ function dfs(dom) {
                     if (window[key] === undefined) {
                         window[key] = Ref(0)
                     }
-                    window[key].subscribe((value, args) => {
-                        // console.log(value, template, dom.innerText.indexOf(template) === -1)
-                        const retValue = eval(template.replaceAll("{", "").replaceAll("}", ""))
-                        if (dom.getAttribute(name).indexOf(template) === -1) {
-                            dom.setAttribute(name, args.prop.replaceAll(template, retValue))
-                        } else {
-                            dom.setAttribute(name, dom.getAttribute(name).replaceAll(template, retValue))
-                        }
-                    }, {prop: dom.getAttribute(name)})
+                    const realKey = Object.keys(Object.assign(window)).find(t => key.indexOf(t) !== -1)
+                    if(realKey) {
+                        window[realKey].subscribe((value, args) => {
+                            // console.log(value, template, dom.innerText.indexOf(template) === -1)
+                            const retValue = eval(template.replaceAll("{", "").replaceAll("}", ""))
+                            if (dom.getAttribute(name).indexOf(template) === -1) {
+                                dom.setAttribute(name, args.prop.replaceAll(template, retValue))
+                            } else {
+                                dom.setAttribute(name, dom.getAttribute(name).replaceAll(template, retValue))
+                            }
+                        }, {prop: dom.getAttribute(name)})
+                    }
                 })
             }
         })
