@@ -31,13 +31,13 @@ const Ref = (initialValue) => {
             return value;
         },
         set(val) {
-            update(val)
+            update(val);
         },
         set value(val) {
-            update(val)
+            update(val);
         },
         get value() {
-
+            return value;
         },
         update,
         subscribe,
@@ -102,8 +102,8 @@ function dfs(dom) {
 window.addEventListener('load', () => {
     initTC()
     dfs(document)
-    initValue()
     tc = window
+    initValue()
 
     document.querySelectorAll('[aria-tc-onchange]').forEach((dom) => {
         dom.addEventListener('change', eval(dom.getAttribute('aria-tc-onchange')))
