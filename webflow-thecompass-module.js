@@ -97,8 +97,9 @@ function dfs(dom) {
 }
 
 window.addEventListener('load', () => {
-    dfs(document)
     initTC()
+    dfs(document)
+    initValue()
     document.querySelectorAll('[aria-tc-onchange]').forEach((dom) => {
         dom.addEventListener('change', eval(dom.getAttribute('aria-tc-onchange')))
     })

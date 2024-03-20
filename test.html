@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="webflow-thecompass-module.js"></script>
-    <style>
-
-    </style>
+    <script src="https://cdn.jsdelivr.net/gh/INC-THECOMPASS/webflow-thecompass-module@1.4/webflow-thecompass-module.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/INC-THECOMPASS/webflow-thecompass-module@1.4/webflow-thecompass-style.css"/>
 </head>
 <body>
     <input class="input" aria-tc-onchange="(e)=>{
@@ -38,21 +36,22 @@
     <div>{{ welcomeMessage }}</div>
     <div>{{ koreaLanguageText }}</div>
     <a aria-tc-onclick="(e)=>{
-        tc.doorCount.value -= 1
+        tc.doorCount.value -= 1;
         if(tc.doorCount.value === 1){
-            tc.doorDisabled.value = true
+            tc.doorEnabled.value = false
         }
-    }" tc-if="{{  }}" >
-        -
+    }" tc-if="{{ doorEnabled }}" >
     </a>
     {{ doorCount }}
 <script>
     function initTC() {
+
+    }
+    function initValue(){
         tc.koreaLanguageText.value = "안녕하세요. 저는 뭐뭐뭐 입니다"
         tc.welcomeMessage.value = "Hello, world"
         tc.value.value = 0
         tc.beforeValue.value = 0
-
     }
 </script>
 </body>
