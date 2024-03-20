@@ -53,17 +53,18 @@ function dfs(dom) {
     } else {
         // console.log("dom", dom)
         if (dom.innerText) {
-            const templates = dom.innerText.match(/\{\{ [\w]+ \}\}/g)
+            const templates = dom.innerText.match(/\{\{ [\w\W]+ \}\}/g)
             if (templates) {
                 templates.forEach((template) => {
                     const key = template.replaceAll("{", "").replaceAll("}", "").replaceAll(" ", "")
+
                     if (window[key] === undefined) {
                         window[key] = Ref(0)
                     }
                     const realKey = Object.keys(Object.assign(window)).find(t => key.indexOf(t) !== -1)
                     if(realKey) {
                         window[realKey].subscribe((value, args) => {
-                            const retValue = eval(key)
+                            const retValue = eval(key.replaceAll(realKey,realKey+".value "))
 
                             if (dom.innerText.indexOf(template) === -1) {
                                 dom.innerText = args.innerText.replaceAll(template, retValue)
@@ -89,8 +90,8 @@ function dfs(dom) {
                     const realKey = Object.keys(Object.assign(window)).find(t => key.indexOf(t) !== -1)
                     if(realKey) {
                         window[realKey].subscribe((value, args) => {
-                            // console.log(value, template, dom.innerText.indexOf(template) === -1)
-                            const retValue = eval(template.replaceAll("{", "").replaceAll("}", ""))
+                            const retValue = eval(key.replaceAll(realKey,realKey+".value"))
+
                             if (dom.getAttribute(name).indexOf(template) === -1) {
                                 dom.setAttribute(name, args.prop.replaceAll(template, retValue))
                             } else {
