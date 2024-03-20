@@ -1,6 +1,6 @@
 const tc = {}
 
-const Observable = (initialValue) => {
+const Ref = (initialValue) => {
     let value = initialValue;
     let subscribers = [];
     const subscribe = (subscriber, bind) =>
@@ -24,9 +24,7 @@ const Observable = (initialValue) => {
 
         // next, we call each subscriber function with both!
         if (subscribers)
-            subscribers.forEach((subscriber) => subscriber.subscriber(value, {
-                innerText: subscriber.bind
-            }))
+            subscribers.forEach((subscriber) => subscriber.subscriber(value, subscriber.bind))
     }
 
     return Object.freeze({
@@ -48,23 +46,45 @@ function dfs(dom) {
             dfs(child)
         })
     } else {
-        const templates = dom.innerText.match(/\{\{ [\w]+ \}\}/g)
-        if (templates) {
-            templates.forEach((template) => {
-                const key = template.replaceAll("{", "").replaceAll("}", "").replaceAll(" ", "")
-                if (tc[key] === undefined) {
-                    tc[key] = Observable(0)
-                }
-                tc[key].subscribe((value, args) => {
-                    // console.log(value, template, dom.innerText.indexOf(template) === -1)
-                    if (dom.innerText.indexOf(template) === -1) {
-                        dom.innerText = args.innerText.replaceAll(template, tc[key].value)
-                    } else {
-                        dom.innerText = dom.innerText.replaceAll(template, tc[key].value)
+        console.log("dom", dom)
+        if (dom.innerText) {
+            const templates = dom.innerText.match(/\{\{ [\w]+ \}\}/g)
+            if (templates) {
+                templates.forEach((template) => {
+                    const key = template.replaceAll("{", "").replaceAll("}", "").replaceAll(" ", "")
+                    if (tc[key] === undefined) {
+                        tc[key] = Ref(0)
                     }
-                }, dom.innerText)
-            })
+                    tc[key].subscribe((value, args) => {
+                        // console.log(value, template, dom.innerText.indexOf(template) === -1)
+                        if (dom.innerText.indexOf(template) === -1) {
+                            dom.innerText = args.innerText.replaceAll(template, tc[key].value)
+                        } else {
+                            dom.innerText = dom.innerText.replaceAll(template, tc[key].value)
+                        }
+                    }, {innerText: dom.innerText})
+                })
+            }
         }
+        dom.getAttributeNames().forEach(name => {
+            const templates = dom.getAttribute(name).match(/\{\{ [\w]+ \}\}/g)
+            if (templates) {
+                templates.forEach((template) => {
+                    const key = template.replaceAll("{", "").replaceAll("}", "").replaceAll(" ", "")
+                    if (tc[key] === undefined) {
+                        tc[key] = Ref(0)
+                    }
+                    tc[key].subscribe((value, args) => {
+                        // console.log(value, template, dom.innerText.indexOf(template) === -1)
+                        if (dom.getAttribute(name).indexOf(template) === -1) {
+                            dom.setAttribute(name, args.prop.replaceAll(template, tc[key].value))
+                        } else {
+                            dom.setAttribute(name, dom.getAttribute(name).replaceAll(template, tc[key].value))
+                        }
+                    }, {prop: dom.getAttribute(name)})
+                })
+            }
+        })
     }
     return
 }

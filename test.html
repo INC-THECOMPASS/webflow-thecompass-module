@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="webflow-thecompass-module.js"></script>
+    <style>
+
+    </style>
 </head>
 <body>
     <input class="input" aria-tc-onchange="(e)=>{
         tc.beforeValue.value=tc.value.value;
-
         tc.value.value=parseInt(e.target.value)
     }" type="number"/>
     <button aria-tc-onclick="(e)=>{
@@ -24,7 +26,7 @@
         before Value is {{ beforeValue }}
     </div>
     <div>
-        this is working too. {{ value }}
+        this is working too.
         this is not working {{value}}
         {{beforeValue}} : {{ beforeValue }} {{ beforeValue }}
     </div>
@@ -32,7 +34,7 @@
         (e)=>{
             tc.welcomeMessage.value = e.target.value
         }
-    "/>
+    " value="{{ value }}"/>
     <div>{{ welcomeMessage }}</div>
     <div>{{ koreaLanguageText }}</div>
 
@@ -40,6 +42,9 @@
     function initTC() {
         tc.koreaLanguageText.value = "안녕하세요. 저는 뭐뭐뭐 입니다"
         tc.welcomeMessage.value = "Hello, world"
+        tc.value.value = 0
+        tc.beforeValue.value = 0
+
     }
 </script>
 </body>
