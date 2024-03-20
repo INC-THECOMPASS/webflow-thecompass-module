@@ -67,25 +67,27 @@ function dfs(dom) {
             }
         }
     }
-    dom.getAttributeNames().forEach(name => {
-        const templates = dom.getAttribute(name).match(/\{\{ [\w]+ \}\}/g)
-        if (templates) {
-            templates.forEach((template) => {
-                const key = template.replaceAll("{", "").replaceAll("}", "").replaceAll(" ", "")
-                if (tc[key] === undefined) {
-                    tc[key] = Ref(0)
-                }
-                tc[key].subscribe((value, args) => {
-                    // console.log(value, template, dom.innerText.indexOf(template) === -1)
-                    if (dom.getAttribute(name).indexOf(template) === -1) {
-                        dom.setAttribute(name, args.prop.replaceAll(template, tc[key].value))
-                    } else {
-                        dom.setAttribute(name, dom.getAttribute(name).replaceAll(template, tc[key].value))
+    if(dom.getAttributeNames) {
+        dom.getAttributeNames().forEach(name => {
+            const templates = dom.getAttribute(name).match(/\{\{ [\w]+ \}\}/g)
+            if (templates) {
+                templates.forEach((template) => {
+                    const key = template.replaceAll("{", "").replaceAll("}", "").replaceAll(" ", "")
+                    if (tc[key] === undefined) {
+                        tc[key] = Ref(0)
                     }
-                }, {prop: dom.getAttribute(name)})
-            })
-        }
-    })
+                    tc[key].subscribe((value, args) => {
+                        // console.log(value, template, dom.innerText.indexOf(template) === -1)
+                        if (dom.getAttribute(name).indexOf(template) === -1) {
+                            dom.setAttribute(name, args.prop.replaceAll(template, tc[key].value))
+                        } else {
+                            dom.setAttribute(name, dom.getAttribute(name).replaceAll(template, tc[key].value))
+                        }
+                    }, {prop: dom.getAttribute(name)})
+                })
+            }
+        })
+    }
     return
 }
 
