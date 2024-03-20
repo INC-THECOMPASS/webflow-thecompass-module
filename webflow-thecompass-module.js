@@ -62,6 +62,7 @@ function dfs(dom) {
                         window[key] = Ref(0)
                     }
                     const realKey = Object.keys(Object.assign(window)).find(t => key.indexOf(t) !== -1)
+                    console.log(realKey)
                     if(realKey) {
                         window[realKey].subscribe((value, args) => {
                             const retValue = eval(key.replaceAll(realKey,realKey+".value "))
