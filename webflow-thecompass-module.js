@@ -63,6 +63,7 @@ function dfs(dom) {
                             dom.innerText = dom.innerText.replaceAll(template, tc[key].value)
                         }
                     }, {innerText: dom.innerText})
+                    dom.style.visibility = "visible";
                 })
             }
         }
