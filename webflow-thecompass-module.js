@@ -1,7 +1,4 @@
-const tc = {}
-
-
-
+let tc;
 const Ref = (initialValue) => {
     let value = initialValue;
     let subscribers = [];
@@ -30,11 +27,17 @@ const Ref = (initialValue) => {
     }
 
     return Object.freeze({
-        get value() {
+        get() {
             return value;
+        },
+        set(val) {
+            update(val)
         },
         set value(val) {
             update(val)
+        },
+        get value() {
+
         },
         update,
         subscribe,
@@ -54,11 +57,11 @@ function dfs(dom) {
             if (templates) {
                 templates.forEach((template) => {
                     const key = template.replaceAll("{", "").replaceAll("}", "").replaceAll(" ", "")
-                    if (tc[key] === undefined) {
-                        tc[key] = Ref(0)
+                    if (window[key] === undefined) {
+                        window[key] = Ref(0)
                     }
-                    tc[key].subscribe((value, args) => {
-                        const retValue = eval(template.replaceAll("{","").replaceAll("}",""))
+                    window[key].subscribe((value, args) => {
+                        const retValue = eval(key)
 
                         if (dom.innerText.indexOf(template) === -1) {
                             dom.innerText = args.innerText.replaceAll(template, retValue)
@@ -71,18 +74,18 @@ function dfs(dom) {
             }
         }
     }
-    if(dom.getAttributeNames) {
+    if (dom.getAttributeNames) {
         dom.getAttributeNames().forEach(name => {
             const templates = dom.getAttribute(name).match(/\{\{ [\w]+ \}\}/g)
             if (templates) {
                 templates.forEach((template) => {
                     const key = template.replaceAll("{", "").replaceAll("}", "").replaceAll(" ", "")
-                    if (tc[key] === undefined) {
-                        tc[key] = Ref(0)
+                    if (window[key] === undefined) {
+                        window[key] = Ref(0)
                     }
-                    tc[key].subscribe((value, args) => {
+                    window[key].subscribe((value, args) => {
                         // console.log(value, template, dom.innerText.indexOf(template) === -1)
-                        const retValue = eval(template.replaceAll("{","").replaceAll("}",""))
+                        const retValue = eval(template.replaceAll("{", "").replaceAll("}", ""))
                         if (dom.getAttribute(name).indexOf(template) === -1) {
                             dom.setAttribute(name, args.prop.replaceAll(template, retValue))
                         } else {
@@ -100,6 +103,8 @@ window.addEventListener('load', () => {
     initTC()
     dfs(document)
     initValue()
+    tc = window
+
     document.querySelectorAll('[aria-tc-onchange]').forEach((dom) => {
         dom.addEventListener('change', eval(dom.getAttribute('aria-tc-onchange')))
     })
