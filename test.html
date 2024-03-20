@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="webflow-thecompass-module.js"></script>
+</head>
+<body>
+    <input class="input" aria-tc-onchange="(e)=>{
+        tc.beforeValue.value=tc.value.value;
+
+        tc.value.value=parseInt(e.target.value)
+    }" type="number"/>
+    <button aria-tc-onclick="(e)=>{
+        if(tc.value.value > 10){
+            e.target.classList.add('disabled');
+            document.querySelector('.input').classList.add('disabled');
+        }
+        tc.beforeValue.value=tc.value.value;
+        tc.value.value+=2
+    }">up 2 count</button>
+    <div>
+        current value is {{ value }}!
+        before Value is {{ beforeValue }}
+    </div>
+    <div>
+        this is working too. {{ value }}
+        this is not working {{value}}
+        {{beforeValue}} : {{ beforeValue }} {{ beforeValue }}
+    </div>
+    <input aria-tc-onkeyup="
+        (e)=>{
+            tc.welcomeMessage.value = e.target.value
+        }
+    "/>
+    <div>{{ welcomeMessage }}</div>
+    <div>{{ koreaLanguageText }}</div>
+
+<script>
+    function initTC() {
+        tc.koreaLanguageText.value = "안녕하세요. 저는 뭐뭐뭐 입니다"
+        tc.welcomeMessage.value = "Hello, world"
+    }
+</script>
+</body>
+</html>
