@@ -58,13 +58,13 @@ function dfs(dom) {
                 templates.forEach((template) => {
                     const key = template.replaceAll("{", "").replaceAll("}", "").replaceAll(" ", "")
 
-                    if (window[key] === undefined) {
-                        window[key] = Ref(0)
+                    if (tc[key] === undefined) {
+                        tc[key] = Ref(0)
                     }
                     const realKey = Object.keys(Object.assign(window)).find(t => key.indexOf(t) !== -1)
                     console.log(realKey)
                     if(realKey && realKey != "window") {
-                        window[realKey].subscribe((value, args) => {
+                        tc[realKey].subscribe((value, args) => {
                             const retValue = eval(key.replaceAll(realKey,realKey+".value "))
 
                             if (dom.innerText.indexOf(template) === -1) {
@@ -85,12 +85,12 @@ function dfs(dom) {
             if (templates) {
                 templates.forEach((template) => {
                     const key = template.replaceAll("{", "").replaceAll("}", "").replaceAll(" ", "")
-                    if (window[key] === undefined) {
-                        window[key] = Ref(0)
+                    if (tc[key] === undefined) {
+                        tc[key] = Ref(0)
                     }
                     const realKey = Object.keys(Object.assign(window)).find(t => key.indexOf(t) !== -1)
                     if(realKey && realKey != "window") {
-                        window[realKey].subscribe((value, args) => {
+                        tc[realKey].subscribe((value, args) => {
                             const retValue = eval(key.replaceAll(realKey,realKey+".value"))
 
                             if (dom.getAttribute(name).indexOf(template) === -1) {
