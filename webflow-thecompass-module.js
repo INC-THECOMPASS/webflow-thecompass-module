@@ -1,4 +1,4 @@
-let tc;
+let tc = {};
 const Ref = (initialValue) => {
     let value = initialValue;
     let subscribers = [];
@@ -110,7 +110,9 @@ function dfs(dom) {
 window.addEventListener('load', () => {
     initTC()
     dfs(document)
-    tc = window
+    tc.keys().forEach(key=>{
+        window[key] = tc[key]
+    })
     initValue()
 
     document.querySelectorAll('[aria-tc-onchange]').forEach((dom) => {
