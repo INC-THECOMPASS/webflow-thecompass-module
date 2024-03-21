@@ -110,7 +110,7 @@ function dfs(dom) {
 window.addEventListener('load', () => {
     initTC()
     dfs(document)
-    tc.keys().forEach(key=>{
+    Object.keys(tc).forEach(key=>{
         window[key] = tc[key]
     })
     initValue()
