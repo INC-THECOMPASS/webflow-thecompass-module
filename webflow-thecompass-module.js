@@ -61,7 +61,7 @@ function dfs(dom) {
                     if (tc[key] === undefined) {
                         tc[key] = Ref(0)
                     }
-                    const realKey = Object.keys(Object.assign(window)).find(t => key.indexOf(t) !== -1)
+                    const realKey = Object.keys(Object.assign(tc)).find(t => key.indexOf(t) !== -1)
                     console.log(realKey)
                     if(realKey && realKey != "window") {
                         tc[realKey].subscribe((value, args) => {
@@ -88,7 +88,7 @@ function dfs(dom) {
                     if (tc[key] === undefined) {
                         tc[key] = Ref(0)
                     }
-                    const realKey = Object.keys(Object.assign(window)).find(t => key.indexOf(t) !== -1)
+                    const realKey = Object.keys(Object.assign(tc)).find(t => key.indexOf(t) !== -1)
                     if(realKey && realKey != "window") {
                         tc[realKey].subscribe((value, args) => {
                             const retValue = eval(key.replaceAll(realKey,realKey+".value"))
