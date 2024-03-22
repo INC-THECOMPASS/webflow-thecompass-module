@@ -21,8 +21,8 @@ function disableDefaultFormSubmission() {
         const forms = [document.querySelector('.main-form'), document.querySelector('.estimate-form'), document.querySelector('.reservation-form')]
         forms.forEach(form=>{
             $(form).submit(async (e)=>{
+                e.preventDefault()
                 const data = new FormData(e.target);
-
                 // Do a bit of work to convert the entries to a plain JS object
                 const value = Object.fromEntries(data.entries());
 
