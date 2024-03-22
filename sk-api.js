@@ -34,8 +34,10 @@ function disableDefaultFormSubmission() {
                     } else {
                         $(e.target.parentElement.querySelector('.error-message')).toggle()
                     }
+                    $(e.target).toggle()
                 }).catch(() => {
                     $(e.target.parentElement.querySelector('.error-message')).toggle()
+                    $(e.target).toggle()
                 })
 
                 return false;
