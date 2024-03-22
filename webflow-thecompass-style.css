@@ -7,7 +7,7 @@
 }
 
 *[tc-disabled] {
-    pointer-event: none;
+    pointer-events: none;
 }
 
 *[tc-afterload] {

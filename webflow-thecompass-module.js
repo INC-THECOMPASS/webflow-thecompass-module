@@ -129,3 +129,7 @@ window.addEventListener('unload', () => {
     Object.values(tc).forEach((value) => value.clear())
 })
 
+//TODO: 1. tc-show
+//TODO: 2. 이벤트 중복 가능
+//TODO: 3. 한 요소 안에 여러개의 변수가 바인딩 되는거
+//TODO: 4. tc-if
