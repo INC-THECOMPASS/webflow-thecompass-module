@@ -67,6 +67,9 @@ window.addEventListener('load', () => {
             if (e.target.validity.valueMissing) {
                 e.target.setCustomValidity('이름을 입력해주세요.')
             }
+            else{
+                e.target.setCustomValidity('')
+            }
         }
     })
     document.querySelectorAll('input[name=phone]').forEach((name) => {
@@ -74,12 +77,18 @@ window.addEventListener('load', () => {
             if (e.target.validity.valueMissing) {
                 e.target.setCustomValidity('연락처를 입력해주세요.')
             }
+            else{
+                e.target.setCustomValidity('')
+            }
         }
     })
     document.querySelectorAll('input[name=counsel_time]').forEach((name) => {
         name.oninvalid = (e) => {
             if (e.target.validity.valueMissing) {
                 e.target.setCustomValidity('상담 시간을 선택해주세요.')
+            }
+            else{
+                e.target.setCustomValidity('')
             }
         }
     })
