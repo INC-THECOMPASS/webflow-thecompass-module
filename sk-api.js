@@ -60,5 +60,5 @@ function disableDefaultFormSubmission() {
 
 window.addEventListener('load', () => {
     disableDefaultFormSubmission()
-    setTimeout(() => document.querySelector('.w-webflow-badge').remove(), 0);
+    setTimeout(() => document.querySelector('.w-webflow-badge').remove(), 100);
 })
