@@ -31,23 +31,22 @@ function disableDefaultFormSubmission() {
                 console.log(e.target != document.querySelector('.reservation-form'))
                 postData("https://dev.skshieldus.com/api/counsel/insert.do", value).then((res) => {
                     if (res.resultCode === '0000') {
-                        if(e.target != document.querySelector('.reservation-form')) {
+                        if (e.target != document.querySelector('.reservation-form')) {
                             $(e.target.parentElement.querySelector('.w-form-done')).toggle()
-                        }
-                        else{
-                            $('.bottom-sticky-success').toggle()
+                        } else {
+                            $('.bottom-sticky-success').css({display: "flex"})
                         }
 
                     } else {
                         $(e.target.parentElement.querySelector('.error-message')).toggle()
                     }
-                    if(e.target != document.querySelector('.reservation-form')) {
+                    if (e.target != document.querySelector('.reservation-form')) {
                         $(e.target).toggle()
                     }
                 }).catch(() => {
                     $(e.target.parentElement.querySelector('.error-message')).toggle()
 
-                    if(e.target != document.querySelector('.reservation-form')) {
+                    if (e.target != document.querySelector('.reservation-form')) {
                         $(e.target).toggle()
                     }
                 })
