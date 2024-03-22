@@ -26,8 +26,8 @@ function disableDefaultFormSubmission() {
                 const data = new FormData(e.target);
                 // Do a bit of work to convert the entries to a plain JS object
                 const value = Object.fromEntries(data.entries());
-                value.marketingUseYn = value.marketingUseYn ? "Y" : "N"
-                value.marketingCollectYn = value.marketingCollectYn ? "Y" : "N"
+                value.marketingUseYn = value?.marketingUseYn === "on" ? "Y" : "N"
+                value.marketingCollectYn = value?.marketingCollectYn === "on" ? "Y" : "N"
                 const res = await postData("https://dev.skshieldus.com/api/counsel/insert.do", value)
                 if (res.resultCode === '0000') {
                     $(e.target.parentElement.querySelector('.w-form-done')).toggle()
