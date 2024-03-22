@@ -21,19 +21,23 @@ function disableDefaultFormSubmission() {
     Webflow.push(() => {
         const forms = [document.querySelector('.main-form'), document.querySelector('.estimate-form'), document.querySelector('.reservation-form')]
         forms.forEach(form => {
-            $(form).submit(async (e) => {
+            $(form).submit((e) => {
                 e.preventDefault()
                 const data = new FormData(e.target);
                 // Do a bit of work to convert the entries to a plain JS object
                 const value = Object.fromEntries(data.entries());
                 value.marketingUseYn = value?.marketingUseYn === "on" ? "Y" : "N"
                 value.marketingCollectYn = value?.marketingCollectYn === "on" ? "Y" : "N"
-                const res = await postData("https://dev.skshieldus.com/api/counsel/insert.do", value)
-                if (res.resultCode === '0000') {
-                    $(e.target.parentElement.querySelector('.w-form-done')).toggle()
-                } else {
+                postData("https://dev.skshieldus.com/api/counsel/insert.do", value).then((res) => {
+                    if (res.resultCode === '0000') {
+                        $(e.target.parentElement.querySelector('.w-form-done')).toggle()
+                    } else {
+                        $(e.target.parentElement.querySelector('.error-message')).toggle()
+                    }
+                }).catch(() => {
                     $(e.target.parentElement.querySelector('.error-message')).toggle()
-                }
+                })
+
                 return false;
             })
         })
