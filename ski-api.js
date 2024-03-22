@@ -15,22 +15,23 @@ async function postData(url = "", data = {}) {
     });
     return response.json(); // JSON 응답을 네이티브 JavaScript 객체로 파싱
 }
+
 function disableDefaultFormSubmission() {
     //
     Webflow.push(() => {
         const forms = [document.querySelector('.main-form'), document.querySelector('.estimate-form'), document.querySelector('.reservation-form')]
-        forms.forEach(form=>{
-            $(form).submit(async (e)=>{
+        forms.forEach(form => {
+            $(form).submit(async (e) => {
                 e.preventDefault()
                 const data = new FormData(e.target);
                 // Do a bit of work to convert the entries to a plain JS object
                 const value = Object.fromEntries(data.entries());
-
+                value.marketingUseYn = value.marketingUseYn ? "Y" : "N"
+                value.marketingCollectYn = value.marketingCollectYn ? "Y" : "N"
                 const res = await postData("https://dev.skshieldus.com/api/counsel/insert.do", value)
-                if(res.resultCode === '0000'){
+                if (res.resultCode === '0000') {
                     $(e.target.parentElement.querySelector('.w-form-done')).toggle()
-                }
-                else{
+                } else {
                     $(e.target.parentElement.querySelector('.error-message')).toggle()
                 }
                 return false;
@@ -38,6 +39,7 @@ function disableDefaultFormSubmission() {
         })
     });
 }
-window.addEventListener('load',()=>{
+
+window.addEventListener('load', () => {
     disableDefaultFormSubmission()
 })
