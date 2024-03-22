@@ -61,4 +61,27 @@ function disableDefaultFormSubmission() {
 window.addEventListener('load', () => {
     disableDefaultFormSubmission()
     setTimeout(() => document.querySelector('.w-webflow-badge').remove(), 100);
+
+    document.querySelectorAll('input[name=name]').forEach((name) => {
+        name.oninvalid = (e) => {
+            if (e.target.validity.valueMissing) {
+                e.target.setCustomValidity('이름을 입력해주세요.')
+            }
+        }
+    })
+    document.querySelectorAll('input[name=phone]').forEach((name) => {
+        name.oninvalid = (e) => {
+            if (e.target.validity.valueMissing) {
+                e.target.setCustomValidity('연락처를 입력해주세요.')
+            }
+        }
+    })
+    document.querySelectorAll('input[name=counsel_time]').forEach((name) => {
+        name.oninvalid = (e) => {
+            if (e.target.validity.valueMissing) {
+                e.target.setCustomValidity('상담 시간을 선택해주세요.')
+            }
+        }
+    })
 })
+
