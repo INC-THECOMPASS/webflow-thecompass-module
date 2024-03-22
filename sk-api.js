@@ -29,7 +29,7 @@ function disableDefaultFormSubmission() {
                 value.marketingUseYn = value?.marketingUseYn === "on" ? "Y" : "N"
                 value.marketingCollectYn = value?.marketingCollectYn === "on" ? "Y" : "N"
                 console.log(e.target != document.querySelector('.reservation-form'))
-                postData("https://dev.skshieldus.com/api/counsel/insert.do", value).then((res) => {
+                postData("https://www.skshieldus.com/api/counsel/insert.do", value).then((res) => {
                     if (res.resultCode === '0000') {
                         if (e.target != document.querySelector('.reservation-form')) {
                             $(e.target.parentElement.querySelector('.w-form-done')).toggle()
@@ -60,4 +60,5 @@ function disableDefaultFormSubmission() {
 
 window.addEventListener('load', () => {
     disableDefaultFormSubmission()
+    setTimeout(() => document.querySelector('.w-webflow-badge').remove(), 0);
 })
