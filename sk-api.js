@@ -34,6 +34,7 @@ function disableDefaultFormSubmission() {
                         if (e.target != document.querySelector('.reservation-form')) {
                             $(e.target.parentElement.querySelector('.w-form-done')).toggle()
                         } else {
+                            $('.modal-wrapper').css({display: "flex"})
                             $('.bottom-sticky-success').css({display: "flex"})
                         }
 
