@@ -28,16 +28,28 @@ function disableDefaultFormSubmission() {
                 const value = Object.fromEntries(data.entries());
                 value.marketingUseYn = value?.marketingUseYn === "on" ? "Y" : "N"
                 value.marketingCollectYn = value?.marketingCollectYn === "on" ? "Y" : "N"
+                console.log(e.target != document.querySelector('.reservation-form'))
                 postData("https://dev.skshieldus.com/api/counsel/insert.do", value).then((res) => {
                     if (res.resultCode === '0000') {
-                        $(e.target.parentElement.querySelector('.w-form-done')).toggle()
+                        if(e.target != document.querySelector('.reservation-form')) {
+                            $(e.target.parentElement.querySelector('.w-form-done')).toggle()
+                        }
+                        else{
+                            $('.bottom-sticky-success').toggle()
+                        }
+
                     } else {
                         $(e.target.parentElement.querySelector('.error-message')).toggle()
                     }
-                    $(e.target).toggle()
+                    if(e.target != document.querySelector('.reservation-form')) {
+                        $(e.target).toggle()
+                    }
                 }).catch(() => {
                     $(e.target.parentElement.querySelector('.error-message')).toggle()
-                    $(e.target).toggle()
+
+                    if(e.target != document.querySelector('.reservation-form')) {
+                        $(e.target).toggle()
+                    }
                 })
 
                 return false;
