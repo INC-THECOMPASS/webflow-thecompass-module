@@ -109,7 +109,6 @@ window.addEventListener('load', () => {
             }
             e.target.validity.valueMissing = false
 
-
             return false
         }
     })

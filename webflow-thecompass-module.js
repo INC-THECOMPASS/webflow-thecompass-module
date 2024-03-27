@@ -124,6 +124,9 @@ window.addEventListener('load', () => {
     document.querySelectorAll('[aria-tc-onkeyup]').forEach((dom) => {
         dom.addEventListener('keyup', eval(dom.getAttribute('aria-tc-onkeyup')))
     })
+    document.querySelectorAll('[tc-afterload]').forEach(dom=>{
+        dom.style.visibility = "visible"
+    })
 })
 window.addEventListener('unload', () => {
     Object.values(tc).forEach((value) => value.clear())
