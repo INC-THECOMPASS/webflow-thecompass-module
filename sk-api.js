@@ -29,12 +29,11 @@ function disableDefaultFormSubmission() {
                 value.marketingUseYn = value?.marketingUseYn === "on" ? "Y" : "N"
                 value.marketingCollectYn = value?.marketingCollectYn === "on" ? "Y" : "N"
 
-                if(value["counsel_time"] === "") {
+                if (value["counsel_time"] === "") {
                     const toastWrapper = document.querySelector('.toast-wrapper')
                     const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
                     counselTimeEl.click()
-                }
-                else {
+                } else {
                     postData("https://www.skshieldus.com/api/counsel/insert.do", value).then((res) => {
                         if (res.resultCode === '0000') {
                             if (e.target != document.querySelector('.reservation-form')) {
@@ -75,8 +74,13 @@ window.addEventListener('load', () => {
             if (e.target.validity.valueMissing) {
                 nameEl.click()
             }
-            e.target.validity.valueMissing = false
 
+            e.target.validity.valueMissing = false
+            const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
+
+            if (document.querySelector('select[name=counsel_time]').value === "") {
+                counselTimeEl.click()
+            }
             return false
         }
     })
@@ -88,7 +92,11 @@ window.addEventListener('load', () => {
                 phoneEl.click()
             }
             e.target.validity.valueMissing = false
+            const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
 
+            if (document.querySelector('select[name=counsel_time]').value === "") {
+                counselTimeEl.click()
+            }
             return false
         }
     })
@@ -100,6 +108,7 @@ window.addEventListener('load', () => {
                 counselTimeEl.click()
             }
             e.target.validity.valueMissing = false
+
 
             return false
         }
