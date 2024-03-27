@@ -54,7 +54,7 @@ function dfs(dom) {
         console.log("dom", dom, dom.innerText)
         if (dom.innerText || (dom.getAttribute('tc-afterload') != null && dom.textContent)) {
             let templates;
-            if((dom.getAttribute('tc-afterload') != null){
+            if((dom.getAttribute('tc-afterload') != null)){
                 templates = dom.textContent.match(/\{\{ [\w\W]+ \}\}/g)
             }
             else {
