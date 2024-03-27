@@ -29,31 +29,35 @@ function disableDefaultFormSubmission() {
                 value.marketingUseYn = value?.marketingUseYn === "on" ? "Y" : "N"
                 value.marketingCollectYn = value?.marketingCollectYn === "on" ? "Y" : "N"
 
-                console.log(value)
+                if(value["counsel_time"] === "") {
+                    const toastWrapper = document.querySelector('.toast-wrapper')
+                    const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
+                    counselTimeEl.click()
+                }
+                else {
+                    postData("https://www.skshieldus.com/api/counsel/insert.do", value).then((res) => {
+                        if (res.resultCode === '0000') {
+                            if (e.target != document.querySelector('.reservation-form')) {
+                                $(e.target.parentElement.querySelector('.w-form-done')).toggle()
+                            } else {
+                                $('.modal-wrapper').css({display: "flex"})
+                                $('.bottom-sticky-success').css({display: "flex"})
+                            }
 
-                postData("https://www.skshieldus.com/api/counsel/insert.do", value).then((res) => {
-                    if (res.resultCode === '0000') {
-                        if (e.target != document.querySelector('.reservation-form')) {
-                            $(e.target.parentElement.querySelector('.w-form-done')).toggle()
                         } else {
-                            $('.modal-wrapper').css({display: "flex"})
-                            $('.bottom-sticky-success').css({display: "flex"})
+                            $(e.target.parentElement.querySelector('.error-message')).toggle()
                         }
-
-                    } else {
+                        if (e.target != document.querySelector('.reservation-form')) {
+                            $(e.target).toggle()
+                        }
+                    }).catch(() => {
                         $(e.target.parentElement.querySelector('.error-message')).toggle()
-                    }
-                    if (e.target != document.querySelector('.reservation-form')) {
-                        $(e.target).toggle()
-                    }
-                }).catch(() => {
-                    $(e.target.parentElement.querySelector('.error-message')).toggle()
 
-                    if (e.target != document.querySelector('.reservation-form')) {
-                        $(e.target).toggle()
-                    }
-                })
-
+                        if (e.target != document.querySelector('.reservation-form')) {
+                            $(e.target).toggle()
+                        }
+                    })
+                }
                 return false;
             })
         })
@@ -62,7 +66,7 @@ function disableDefaultFormSubmission() {
 
 window.addEventListener('load', () => {
     disableDefaultFormSubmission()
-    setTimeout(() => document.querySelector('.w-webflow-badge').remove(), 100);
+    // setTimeout(() => document.querySelector('.w-webflow-badge').remove(), 100);
 
     document.querySelectorAll('input[name=name]').forEach((name) => {
         name.oninvalid = (e) => {
