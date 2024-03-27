@@ -64,32 +64,32 @@ window.addEventListener('load', () => {
 
     document.querySelectorAll('input[name=name]').forEach((name) => {
         name.oninvalid = (e) => {
+            const toastWrapper = document.querySelector('.toast-wrapper')
+            const nameEl = toastWrapper.querySelector('.name .toast-controller ')
             if (e.target.validity.valueMissing) {
-                e.target.setCustomValidity('이름을 입력해주세요.')
+                nameEl.click()
             }
-            else{
-                e.target.setCustomValidity('')
-            }
+            e.target.setCustomValidity('')
         }
     })
     document.querySelectorAll('input[name=phone]').forEach((name) => {
         name.oninvalid = (e) => {
+            const toastWrapper = document.querySelector('.toast-wrapper')
+            const phoneEl = toastWrapper.querySelector('.phone .toast-controller')
             if (e.target.validity.valueMissing) {
-                e.target.setCustomValidity('연락처를 입력해주세요.')
+                phoneEl.click()
             }
-            else{
-                e.target.setCustomValidity('')
-            }
+            e.target.setCustomValidity('')
         }
     })
     document.querySelectorAll('input[name=counsel_time]').forEach((name) => {
         name.oninvalid = (e) => {
+            const toastWrapper = document.querySelector('.toast-wrapper')
+            const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
             if (e.target.validity.valueMissing) {
-                e.target.setCustomValidity('상담 시간을 선택해주세요.')
+                counselTimeEl.click()
             }
-            else{
-                e.target.setCustomValidity('')
-            }
+            e.target.setCustomValidity('')
         }
     })
 })
