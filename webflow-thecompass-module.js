@@ -51,7 +51,7 @@ function dfs(dom) {
             dfs(child)
         })
     } else {
-        console.log("dom", dom)
+        console.log("dom", dom.innerText)
         if (dom.innerText) {
             const templates = dom.innerText.match(/\{\{ [\w\W]+ \}\}/g)
             if (templates) {
@@ -63,6 +63,7 @@ function dfs(dom) {
                     }
                     const realKey = Object.keys(Object.assign(tc)).find(t => key.indexOf(t) !== -1)
                     console.log(realKey)
+                    dom.style.visibility = "visible";
                     if(realKey && realKey != "window") {
                         tc[realKey].subscribe((value, args) => {
                             const retValue = eval(key.replaceAll(realKey,realKey+".value "))
@@ -73,7 +74,6 @@ function dfs(dom) {
                                 dom.innerText = dom.innerText.replaceAll(template, retValue)
                             }
                         }, {innerText: dom.innerText})
-                        dom.style.visibility = "visible";
                     }
                 })
             }
