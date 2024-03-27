@@ -51,7 +51,7 @@ function dfs(dom) {
             dfs(child)
         })
     } else {
-        // console.log("dom", dom)
+        console.log("dom", dom)
         if (dom.innerText) {
             const templates = dom.innerText.match(/\{\{ [\w\W]+ \}\}/g)
             if (templates) {
@@ -124,9 +124,9 @@ window.addEventListener('load', () => {
     document.querySelectorAll('[aria-tc-onkeyup]').forEach((dom) => {
         dom.addEventListener('keyup', eval(dom.getAttribute('aria-tc-onkeyup')))
     })
-    document.querySelectorAll('[tc-afterload]').forEach(dom=>{
-        dom.style.visibility = "visible"
-    })
+    // document.querySelectorAll('[tc-afterload]').forEach(dom=>{
+    //     dom.style.visibility = "visible"
+    // })
 })
 window.addEventListener('unload', () => {
     Object.values(tc).forEach((value) => value.clear())
