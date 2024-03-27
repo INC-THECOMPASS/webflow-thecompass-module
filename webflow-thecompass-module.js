@@ -60,7 +60,6 @@ function dfs(dom) {
             else {
                 templates = dom.innerText.match(/\{\{ [\w\W]+ \}\}/g)
             }
-            console.log("dom2", dom, dom.innerText, templates)
 
             if (templates) {
                 templates.forEach((template) => {
@@ -70,8 +69,6 @@ function dfs(dom) {
                         tc[key] = Ref(0)
                     }
                     const realKey = Object.keys(Object.assign(tc)).find(t => key.indexOf(t) !== -1)
-                    console.log("dom3", dom, dom.innerText, realKey)
-                    console.log(realKey)
                     if(realKey && realKey != "window") {
                         tc[realKey].subscribe((value, args) => {
                             const retValue = eval(key.replaceAll(realKey,realKey+".value "))
@@ -116,6 +113,7 @@ function dfs(dom) {
                             } else {
                                 dom.setAttribute(name, dom.getAttribute(name).replaceAll(template, retValue))
                             }
+                            dom.style.visibility = "visible";
                         }, {prop: dom.getAttribute(name)})
                     }
                 })
