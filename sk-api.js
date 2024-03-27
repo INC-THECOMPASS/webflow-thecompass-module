@@ -28,7 +28,9 @@ function disableDefaultFormSubmission() {
                 const value = Object.fromEntries(data.entries());
                 value.marketingUseYn = value?.marketingUseYn === "on" ? "Y" : "N"
                 value.marketingCollectYn = value?.marketingCollectYn === "on" ? "Y" : "N"
-                console.log(e.target != document.querySelector('.reservation-form'))
+
+                console.log(value)
+
                 postData("https://www.skshieldus.com/api/counsel/insert.do", value).then((res) => {
                     if (res.resultCode === '0000') {
                         if (e.target != document.querySelector('.reservation-form')) {
@@ -69,7 +71,9 @@ window.addEventListener('load', () => {
             if (e.target.validity.valueMissing) {
                 nameEl.click()
             }
-            e.target.setCustomValidity('')
+            e.target.validity.valueMissing = false
+
+            return false
         }
     })
     document.querySelectorAll('input[name=phone]').forEach((name) => {
@@ -79,17 +83,21 @@ window.addEventListener('load', () => {
             if (e.target.validity.valueMissing) {
                 phoneEl.click()
             }
-            e.target.setCustomValidity('')
+            e.target.validity.valueMissing = false
+
+            return false
         }
     })
-    document.querySelectorAll('input[name=counsel_time]').forEach((name) => {
+    document.querySelectorAll('select[name=counsel_time]').forEach((name) => {
         name.oninvalid = (e) => {
             const toastWrapper = document.querySelector('.toast-wrapper')
             const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
             if (e.target.validity.valueMissing) {
                 counselTimeEl.click()
             }
-            e.target.setCustomValidity('')
+            e.target.validity.valueMissing = false
+
+            return false
         }
     })
 })
