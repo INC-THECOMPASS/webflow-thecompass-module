@@ -52,8 +52,14 @@ function dfs(dom) {
         })
     } else {
         console.log("dom", dom, dom.innerText)
-        if (dom.innerText) {
-            const templates = dom.innerText.match(/\{\{ [\w\W]+ \}\}/g)
+        if (dom.innerText || (dom.getAttribute('tc-afterload') != null && dom.textContent)) {
+            let templates;
+            if((dom.getAttribute('tc-afterload') != null){
+                templates = dom.textContent.match(/\{\{ [\w\W]+ \}\}/g)
+            }
+            else {
+                templates = dom.innerText.match(/\{\{ [\w\W]+ \}\}/g)
+            }
             console.log("dom2", dom, dom.innerText, templates)
 
             if (templates) {
