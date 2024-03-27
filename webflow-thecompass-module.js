@@ -75,12 +75,22 @@ function dfs(dom) {
                     if(realKey && realKey != "window") {
                         tc[realKey].subscribe((value, args) => {
                             const retValue = eval(key.replaceAll(realKey,realKey+".value "))
-
-                            if (dom.innerText.indexOf(template) === -1) {
-                                dom.innerText = args.innerText.replaceAll(template, retValue)
-                            } else {
-                                dom.innerText = dom.innerText.replaceAll(template, retValue)
+                            if((dom.getAttribute('tc-afterload') != null)) {
+                                if (dom.textContent.indexOf(template) === -1) {
+                                    dom.textContent = args.textContent.replaceAll(template, retValue)
+                                } else {
+                                    dom.textContent = dom.textContent.replaceAll(template, retValue)
+                                }
                             }
+                            else {
+                                if (dom.innerText.indexOf(template) === -1) {
+                                    dom.innerText = args.innerText.replaceAll(template, retValue)
+                                } else {
+                                    dom.innerText = dom.innerText.replaceAll(template, retValue)
+                                }
+                            }
+                            dom.style.visibility = "visible";
+
                         }, {innerText: dom.innerText})
                     }
                 })
