@@ -54,6 +54,8 @@ function dfs(dom) {
         console.log("dom", dom, dom.innerText)
         if (dom.innerText) {
             const templates = dom.innerText.match(/\{\{ [\w\W]+ \}\}/g)
+            console.log("dom2", dom, dom.innerText, templates)
+
             if (templates) {
                 templates.forEach((template) => {
                     const key = template.replaceAll("{", "").replaceAll("}", "").replaceAll(" ", "")
@@ -62,7 +64,7 @@ function dfs(dom) {
                         tc[key] = Ref(0)
                     }
                     const realKey = Object.keys(Object.assign(tc)).find(t => key.indexOf(t) !== -1)
-                    console.log("dom2", dom, dom.innerText, realKey)
+                    console.log("dom3", dom, dom.innerText, realKey)
                     console.log(realKey)
                     if(realKey && realKey != "window") {
                         tc[realKey].subscribe((value, args) => {
