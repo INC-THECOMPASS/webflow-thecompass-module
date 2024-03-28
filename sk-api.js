@@ -70,18 +70,16 @@ window.addEventListener('load', () => {
 
     document.querySelectorAll('input[name=name]').forEach((name) => {
         name.oninvalid = (e) => {
-            const toastWrapper = document.querySelector('.toast-wrapper')
-            const nameEl = toastWrapper.querySelector('.name .toast-controller ')
             if (e.target.validity.valueMissing) {
-                nameEl.click()
+                e.target.setCustomValidity('이름을 입력해주세요.')
+            }
+            else{
+                e.target.setCustomValidity('')
+                if (document.querySelector('select[name=counsel_time]').value === "") {
+                    e.target.setCustomValidity('상담 시간을 선택해주세요.')
+                }
             }
 
-            e.target.validity.valueMissing = false
-            const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
-
-            if (document.querySelector('select[name=counsel_time]').value === "") {
-                counselTimeEl.click()
-            }
             return false
         }
         name.addEventListener('keyup', (e) => {
@@ -92,17 +90,16 @@ window.addEventListener('load', () => {
     })
     document.querySelectorAll('input[name=phone]').forEach((name) => {
         name.oninvalid = (e) => {
-            const toastWrapper = document.querySelector('.toast-wrapper')
-            const phoneEl = toastWrapper.querySelector('.phone .toast-controller')
             if (e.target.validity.valueMissing) {
-                phoneEl.click()
+                e.target.setCustomValidity('연락처를 입력해주세요.')
             }
-            e.target.validity.valueMissing = false
-            const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
+            else{
+                e.target.setCustomValidity('')
+                if (document.querySelector('select[name=counsel_time]').value === "") {
+                    e.target.setCustomValidity('상담 시간을 선택해주세요.')
+                }
+            }
 
-            if (document.querySelector('select[name=counsel_time]').value === "") {
-                counselTimeEl.click()
-            }
             return false
         }
         name.addEventListener('keyup', (e) => {
@@ -113,12 +110,12 @@ window.addEventListener('load', () => {
     })
     document.querySelectorAll('select[name=counsel_time]').forEach((name) => {
         name.oninvalid = (e) => {
-            const toastWrapper = document.querySelector('.toast-wrapper')
-            const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
             if (e.target.validity.valueMissing) {
-                counselTimeEl.click()
+                e.target.setCustomValidity('상담 시간을 선택해주세요.')
             }
-            e.target.validity.valueMissing = false
+            else{
+                e.target.setCustomValidity('')
+            }
 
             return false
         }
