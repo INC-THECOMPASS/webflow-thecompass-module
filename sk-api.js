@@ -85,7 +85,7 @@ window.addEventListener('load', () => {
             return false
         }
         name.addEventListener('keyup',(e)=>{
-            const data = new FormData(e.target.parentElement.parentElement.parentElement.parentElement);
+            const data = new FormData(e.target.form);
             const value = Object.fromEntries(data.entries());
             tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
         })
@@ -106,7 +106,7 @@ window.addEventListener('load', () => {
             return false
         }
         name.addEventListener('keyup',(e)=>{
-            const data = new FormData(e.target.parentElement.parentElement.parentElement.parentElement);
+            const data = new FormData(e.target.form);
             const value = Object.fromEntries(data.entries());
             tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
         })
@@ -123,14 +123,14 @@ window.addEventListener('load', () => {
             return false
         }
         name.addEventListener('change',(e)=>{
-            const data = new FormData(e.target.parentElement.parentElement.parentElement.parentElement);
+            const data = new FormData(e.target.form);
             const value = Object.fromEntries(data.entries());
             tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
         })
     })
     document.querySelectorAll('[name=marketingUseYn]').forEach((name)=>{
         name.addEventListener('change',(e)=>{
-            const data = new FormData(e.target.parentElement.parentElement.parentElement.parentElement.parentElement);
+            const data = new FormData(e.target.form);
             const value = Object.fromEntries(data.entries());
             tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
         })
