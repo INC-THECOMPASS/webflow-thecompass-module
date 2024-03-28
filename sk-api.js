@@ -34,7 +34,7 @@ function disableDefaultFormSubmission() {
                     const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
                     counselTimeEl.click()
                 } else {
-                    postData("https://skshieldus.com/api/counsel/insert.do", value).then((res) => {
+                    postData(`https://${window.location.host}/api/counsel/insert.do`, value).then((res) => {
                         if (res.resultCode === '0000') {
                             if (e.target != document.querySelector('.reservation-form')) {
                                 $(e.target.parentElement.querySelector('.w-form-done')).toggle()
