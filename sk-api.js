@@ -42,19 +42,19 @@ function disableDefaultFormSubmission() {
                                 $('.modal-wrapper').css({display: "flex"})
                                 $('.bottom-sticky-success').css({display: "flex"})
                             }
-
+                            if (e.target != document.querySelector('.reservation-form')) {
+                                $(e.target).toggle()
+                            }
                         } else {
-                            $(e.target.parentElement.querySelector('.error-message')).toggle()
+                            // $(e.target.parentElement.querySelector('.error-message')).toggle()
                         }
-                        if (e.target != document.querySelector('.reservation-form')) {
-                            $(e.target).toggle()
-                        }
-                    }).catch(() => {
-                        $(e.target.parentElement.querySelector('.error-message')).toggle()
 
-                        if (e.target != document.querySelector('.reservation-form')) {
-                            $(e.target).toggle()
-                        }
+                    }).catch(() => {
+                        // $(e.target.parentElement.querySelector('.error-message')).toggle()
+
+                        // if (e.target != document.querySelector('.reservation-form')) {
+                        //     $(e.target).toggle()
+                        // }
                     })
                 }
                 tc.ctaDisabled.value = true;
@@ -84,7 +84,7 @@ window.addEventListener('load', () => {
             }
             return false
         }
-        name.addEventListener('keyup',(e)=>{
+        name.addEventListener('keyup', (e) => {
             const data = new FormData(e.target.form);
             const value = Object.fromEntries(data.entries());
             tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
@@ -105,7 +105,7 @@ window.addEventListener('load', () => {
             }
             return false
         }
-        name.addEventListener('keyup',(e)=>{
+        name.addEventListener('keyup', (e) => {
             const data = new FormData(e.target.form);
             const value = Object.fromEntries(data.entries());
             tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
@@ -122,14 +122,14 @@ window.addEventListener('load', () => {
 
             return false
         }
-        name.addEventListener('change',(e)=>{
+        name.addEventListener('change', (e) => {
             const data = new FormData(e.target.form);
             const value = Object.fromEntries(data.entries());
             tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
         })
     })
-    document.querySelectorAll('[name=marketingUseYn]').forEach((name)=>{
-        name.addEventListener('change',(e)=>{
+    document.querySelectorAll('[name=marketingUseYn]').forEach((name) => {
+        name.addEventListener('change', (e) => {
             const data = new FormData(e.target.form);
             const value = Object.fromEntries(data.entries());
             tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
