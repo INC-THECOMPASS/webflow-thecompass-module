@@ -72,11 +72,13 @@ window.addEventListener('load', () => {
         name.oninvalid = (e) => {
             if (e.target.validity.valueMissing) {
                 e.target.setCustomValidity('이름을 입력해주세요.')
+                return true
             }
             else{
                 e.target.setCustomValidity('')
                 if (document.querySelector('select[name=counsel_time]').value === "") {
-                    e.target.setCustomValidity('상담 시간을 선택해주세요.')
+                    e.target.form.querySelector('select[name=counsel_time]').setCustomValidity('상담 시간을 선택해주세요.')
+                    return true
                 }
             }
 
@@ -92,11 +94,13 @@ window.addEventListener('load', () => {
         name.oninvalid = (e) => {
             if (e.target.validity.valueMissing) {
                 e.target.setCustomValidity('연락처를 입력해주세요.')
+                return true
             }
             else{
                 e.target.setCustomValidity('')
                 if (document.querySelector('select[name=counsel_time]').value === "") {
-                    e.target.setCustomValidity('상담 시간을 선택해주세요.')
+                    e.target.form.querySelector('select[name=counsel_time]').setCustomValidity('상담 시간을 선택해주세요.')
+                    return true
                 }
             }
 
@@ -117,7 +121,7 @@ window.addEventListener('load', () => {
                 e.target.setCustomValidity('')
             }
 
-            return false
+            return true
         }
         name.addEventListener('change', (e) => {
             const data = new FormData(e.target.form);
