@@ -29,10 +29,8 @@ function disableDefaultFormSubmission() {
                 value.marketingUseYn = value?.marketingUseYn === "on" ? "Y" : "N"
                 value.marketingCollectYn = value?.marketingCollectYn === "on" ? "Y" : "N"
 
-                if (value["counsel_time"] === "") {
-                    const toastWrapper = document.querySelector('.toast-wrapper')
-                    const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
-                    counselTimeEl.click()
+                if (document.querySelector('select[name=counsel_time]').value === "") {
+                    document.querySelector('select[name=counsel_time]').setCustomValidity('상담 시간을 선택해주세요.')
                 } else {
                     postData("https://skshieldus.com/api/counsel/insert.do", value).then((res) => {
                         if (res.resultCode === '0000') {
@@ -73,8 +71,7 @@ window.addEventListener('load', () => {
             if (e.target.validity.valueMissing) {
                 e.target.setCustomValidity('이름을 입력해주세요.')
                 return true
-            }
-            else{
+            } else {
                 e.target.setCustomValidity('')
                 if (document.querySelector('select[name=counsel_time]').value === "") {
                     e.target.form.querySelector('select[name=counsel_time]').setCustomValidity('상담 시간을 선택해주세요.')
@@ -95,8 +92,7 @@ window.addEventListener('load', () => {
             if (e.target.validity.valueMissing) {
                 e.target.setCustomValidity('연락처를 입력해주세요.')
                 return true
-            }
-            else{
+            } else {
                 e.target.setCustomValidity('')
                 if (document.querySelector('select[name=counsel_time]').value === "") {
                     e.target.form.querySelector('select[name=counsel_time]').setCustomValidity('상담 시간을 선택해주세요.')
@@ -116,8 +112,7 @@ window.addEventListener('load', () => {
         name.oninvalid = (e) => {
             if (e.target.validity.valueMissing) {
                 e.target.setCustomValidity('상담 시간을 선택해주세요.')
-            }
-            else{
+            } else {
                 e.target.setCustomValidity('')
             }
 
