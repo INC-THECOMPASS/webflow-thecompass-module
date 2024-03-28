@@ -57,6 +57,7 @@ function disableDefaultFormSubmission() {
                         }
                     })
                 }
+                tc.ctaDisabled.value = true;
                 return false;
             })
         })
@@ -83,6 +84,11 @@ window.addEventListener('load', () => {
             }
             return false
         }
+        name.addEventListener('keyup',(e)=>{
+            const data = new FormData(e.target.parentElement.parentElement.parentElement.parentElement);
+            const value = Object.fromEntries(data.entries());
+            tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
+        })
     })
     document.querySelectorAll('input[name=phone]').forEach((name) => {
         name.oninvalid = (e) => {
@@ -99,6 +105,11 @@ window.addEventListener('load', () => {
             }
             return false
         }
+        name.addEventListener('keyup',(e)=>{
+            const data = new FormData(e.target.parentElement.parentElement.parentElement.parentElement);
+            const value = Object.fromEntries(data.entries());
+            tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
+        })
     })
     document.querySelectorAll('select[name=counsel_time]').forEach((name) => {
         name.oninvalid = (e) => {
@@ -111,6 +122,11 @@ window.addEventListener('load', () => {
 
             return false
         }
+        name.addEventListener('change',(e)=>{
+            const data = new FormData(e.target.parentElement.parentElement.parentElement.parentElement);
+            const value = Object.fromEntries(data.entries());
+            tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
+        })
     })
 })
 

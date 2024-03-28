@@ -13,6 +13,7 @@
 *[tc-afterload] {
     visibility: hidden;
 }
-.w-webflow-badge{
-    display:none !important;
+
+.w-webflow-badge {
+    display: none !important;
 }
