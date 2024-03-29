@@ -88,7 +88,7 @@ function dfs(dom) {
                             }
                             dom.style.visibility = "visible";
 
-                        }, {innerText: dom.innerText})
+                        }, {innerText: dom.innerText, textContent:dom.textContent})
                     }
                 })
             }
