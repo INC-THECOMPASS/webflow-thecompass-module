@@ -72,14 +72,14 @@ window.addEventListener('load', () => {
         name.oninvalid = (e) => {
             const toastWrapper = document.querySelector('.toast-wrapper')
             const nameEl = toastWrapper.querySelector('.name .toast-controller ')
-            if (e.target.validity.valueMissing) {
+            if (!e.target.validity.valid) {
                 nameEl.click()
             }
 
             e.target.validity.valueMissing = false
             const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
 
-            if (document.querySelector('select[name=counsel_time]').value === "") {
+            if (e.target.form.querySelector('select[name=counsel_time]').value === "") {
                 counselTimeEl.click()
             }
             return false
@@ -94,13 +94,13 @@ window.addEventListener('load', () => {
         name.oninvalid = (e) => {
             const toastWrapper = document.querySelector('.toast-wrapper')
             const phoneEl = toastWrapper.querySelector('.phone .toast-controller')
-            if (e.target.validity.valueMissing) {
+            if (!e.target.validity.valid) {
                 phoneEl.click()
             }
             e.target.validity.valueMissing = false
             const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
 
-            if (document.querySelector('select[name=counsel_time]').value === "") {
+            if (e.target.form.querySelector('select[name=counsel_time]').value === "") {
                 counselTimeEl.click()
             }
             return false
@@ -115,7 +115,7 @@ window.addEventListener('load', () => {
         name.oninvalid = (e) => {
             const toastWrapper = document.querySelector('.toast-wrapper')
             const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
-            if (e.target.validity.valueMissing) {
+            if (!e.target.validity.valid) {
                 counselTimeEl.click()
             }
             e.target.validity.valueMissing = false
