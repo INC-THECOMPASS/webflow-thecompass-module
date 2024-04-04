@@ -51,7 +51,7 @@ function dfs(dom) {
             dfs(child)
         })
     } else {
-        console.log("dom", dom, dom.innerText)
+        // console.log("dom", dom, dom.innerText)
         if (dom.innerText || (dom.getAttribute('tc-afterload') != null && dom.textContent)) {
             let templates;
             if((dom.getAttribute('tc-afterload') != null)){
