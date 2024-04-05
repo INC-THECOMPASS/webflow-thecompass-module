@@ -111,6 +111,14 @@ window.addEventListener('load', () => {
             tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
         })
     })
+    $('input[name=phone]').keyup(function(){
+        $(this).val(
+            $(this).val()
+                .replace(/[^0-9]/g,"")
+                .replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,'$1$2$3')
+                .replace("--","-")
+        );
+    });
     document.querySelectorAll('select[name=counsel_time]').forEach((name) => {
         name.oninvalid = (e) => {
             const toastWrapper = document.querySelector('.toast-wrapper')
