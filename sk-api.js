@@ -19,7 +19,48 @@ async function postData(url = "", data = {}) {
 function disableDefaultFormSubmission() {
     //
     Webflow.push(() => {
+        $(document.querySelector('.infosec')).submit((e) => {
+            e.preventDefault()
+            const data = new FormData(e.target);
+            // Do a bit of work to convert the entries to a plain JS object
+            const value = Object.fromEntries(data.entries());
+            value.marketingUseYn = value?.marketingUseYn === "on" ? "Y" : "N"
+            value.marketingCollectYn = value?.marketingCollectYn === "on" ? "Y" : "N"
+            console.log(data)
+            // if (value["counsel_time"] === "") {
+            //     const toastWrapper = document.querySelector('.toast-wrapper')
+            //     const counselTimeEl = toastWrapper.querySelector('.counsel-time .toast-controller')
+            //     counselTimeEl.click()
+            // } else {
+            postData(`https://${window.location.host}/api/inforsec/save.do`, value).then((res) => {
+                if (res.resultCode === '0000') {
+                    if (e.target != document.querySelector('.reservation-form')) {
+                        $(e.target.parentElement.querySelector('.w-form-done')).toggle()
+                    } else {
+                        $('.modal-wrapper').css({display: "flex"})
+                        $('.bottom-sticky-success').css({display: "flex"})
+                    }
+                    if (e.target != document.querySelector('.reservation-form')) {
+                        $(e.target).toggle()
+                    }
+                } else {
+                    // $(e.target.parentElement.querySelector('.error-message')).toggle()
+                }
+
+            }).catch(() => {
+                // $(e.target.parentElement.querySelector('.error-message')).toggle()
+
+                // if (e.target != document.querySelector('.reservation-form')) {
+                //     $(e.target).toggle()
+                // }
+            })
+            // }
+            return false;
+        })
+    })
+    Webflow.push(() => {
         const forms = [document.querySelector('.main-form'), document.querySelector('.estimate-form'), document.querySelector('.reservation-form')]
+
         forms.forEach(form => {
             $(form).submit((e) => {
                 e.preventDefault()
@@ -111,12 +152,12 @@ window.addEventListener('load', () => {
             tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
         })
     })
-    $('input[name=phone]').keyup(function(){
+    $('input[name=phone]').keyup(function () {
         $(this).val(
             $(this).val()
-                .replace(/[^0-9]/g,"")
-                .replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,'$1$2$3')
-                .replace("--","-")
+                .replace(/[^0-9]/g, "")
+                .replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/, '$1$2$3')
+                .replace("--", "-")
         );
     });
     document.querySelectorAll('select[name=counsel_time]').forEach((name) => {
