@@ -152,7 +152,7 @@ window.addEventListener('load', () => {
             tc.ctaDisabled.value = !(value?.name && value?.phone && (value["counsel_time"].length > 0) && (value?.marketingUseYn === "on"));
         })
     })
-    $('input[name=phone]').keyup(function () {
+    $('input[name=phone], input[name=newMemPhone]').keyup(function () {
         $(this).val(
             $(this).val()
                 .replace(/[^0-9]/g, "")
